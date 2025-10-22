@@ -1,0 +1,9 @@
+Dockerfile*
+docker-compose*
+.venv/
+.git/
+.zed/
+.postgres_db/
+.pgadmin_data/
+.redis_data/
+.*

@@ -1,0 +1,12 @@
+.venv/
+.env
+info.log
+error.log
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.zed/
+.postgres_db/
+.pgadmin_data/
+.redis_data/
