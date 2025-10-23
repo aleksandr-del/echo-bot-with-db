@@ -2,15 +2,12 @@
 
 
 import logging
-import logging.config
-from app.logger.logging_settings import logging_config
 from psycopg import AsyncConnection, Error
 from psycopg_pool import AsyncConnectionPool
 from urllib.parse import quote
 from config.config import Config
 
 
-logging.config.dictConfig(logging_config)
 logger = logging.getLogger(__name__)
 
 
@@ -39,7 +36,7 @@ async def log_db_version(connection: AsyncConnection) -> None:
             await cursor.execute("SELECT version()")
             db_version = await cursor.fetchone()
             logger.info("Connected to PostgreSQL version: %s", db_version[0])
-    except Exception as err:
+    except Error as err:
         logger.error("Failed to fetch DB version: %s", err)
 
 
@@ -48,10 +45,10 @@ async def get_pg_connection(config: Config) -> AsyncConnection:
     connection: AsyncConnection | None = None
 
     try:
-        connection = await AsyncConnection.connect(conninfo=conninfo)
+        connection = await AsyncConnection.connect(conninfo=conninfo, autocommit=True)
         await log_db_version(connection)
         return connection
-    except Exception as err:
+    except Error as err:
         logger.error("Failed to connect to PostgreSQL: %s", err)
         if connection:
             await connection.close()
@@ -78,7 +75,7 @@ async def get_pg_pool(
             await log_db_version(connection)
 
         return db_pool
-    except Exception as err:
+    except Error as err:
         logger.error("Failed to initialize PostgreSQL pool: %s", err)
         if db_pool and not db_pool.closed:
             await db_pool.close()
