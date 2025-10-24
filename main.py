@@ -5,31 +5,34 @@ from app.logger.logging_settings import logging_config
 
 logging.config.dictConfig(logging_config)
 
-import asyncio
-from app.infrastructure.database.connection import get_pg_connection
-from app.infrastructure.database.db import (
-    add_user,
-    get_user,
-    update_user_alive_status,
-    update_user_activity,
-    update_user_lang,
-    get_user_role,
-)
 from config.config import Config, load_config
+from aiogram import Bot, Dispatcher
+from aiogram.types import Message, BotCommandScopeChat
+from aiogram.enums import BotCommandScopeType
+from aiogram.filters import CommandStart
+from locales.ru.txt import RU
+from app.bot.keyboards.menu_button import get_main_menu_commands
+from app.bot.enums.roles import UserRole
+
+config: Config = load_config()
+bot = Bot(config.bot.token)
+dp = Dispatcher()
+dp.workflow_data.update({"admin_ids": config.bot.admin_ids})
 
 
-async def main():
-    config: Config = load_config()
-    conn = await get_pg_connection(config=config)
-    await add_user(conn, user_id=852456, username="Alex")
-    await update_user_activity(conn, user_id=852456)
-    await update_user_activity(conn, user_id=852456)
-    await update_user_alive_status(conn, is_alive=False, user_id=852456)
-    await update_user_lang(conn, language="en", user_id=852456)
-    role = await get_user_role(conn, user_id=852456)
-    user = await get_user(conn, 852456)
-    return user, role
+@dp.message(CommandStart())
+async def process_start_command(
+    message: Message, bot: Bot, admin_ids: list[int]
+) -> None:
+    role = UserRole.ADMIN if message.from_user.id in admin_ids else UserRole.USER
+    await bot.set_my_commands(
+        commands=get_main_menu_commands(RU, role),
+        scope=BotCommandScopeChat(
+            type=BotCommandScopeType.CHAT, chat_id=message.from_user.id
+        ),
+    )
+    await message.answer(text=RU[message.text])
 
 
 if __name__ == "__main__":
-    print(asyncio.run(main()))
+    dp.run_polling(bot)
