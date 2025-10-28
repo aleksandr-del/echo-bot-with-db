@@ -11,6 +11,6 @@ others_router = Router()
 @others_router.message()
 async def send_echo(message: Message, i18n: dict[str, str]) -> None:
     try:
-        await message.send_echo(chat_id=message.from_user.id)
+        await message.send_copy(chat_id=message.from_user.id)
     except TypeError:
-        message.answer(text=i18n.get("no_echo"))
+        await message.answer(text=i18n.get("no_echo"))

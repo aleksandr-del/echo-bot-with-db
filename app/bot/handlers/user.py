@@ -39,13 +39,13 @@ async def process_start_command(
     bot: Bot,
     i18n: dict[str, str],
     state: FSMContext,
-    adnin_ids: list[int],
+    admin_ids: list[int],
     translations: dict[str, str],
 ) -> None:
     user: User | None = message.from_user
     user_row = await get_user(conn=conn, user_id=user.id)
     if user_row is None:
-        user_role = UserRole.ADMIN if user.id in adnin_ids else UserRole.USER
+        user_role = UserRole.ADMIN if user.id in admin_ids else UserRole.USER
         await add_user(
             conn=conn,
             user_id=user.id,

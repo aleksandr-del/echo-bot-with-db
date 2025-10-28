@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class LangSettingsMiddlware(BaseMiddleware):
     async def __call__(self, handler: Handler, event: Update, data: Data) -> Any:
-        user: User | None = data.get("event_fron_user")
+        user: User | None = data.get("event_from_user")
         if user is None:
             return await handler(event, data)
 

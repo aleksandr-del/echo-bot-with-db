@@ -41,7 +41,7 @@ class UserRoleFilter(BaseFilter):
 
 class LocaleFilter(BaseFilter):
     async def __call__(self, callback: CallbackQuery, locales: list[str]) -> bool:
-        if isinstance(callback, CallbackQuery):
+        if not isinstance(callback, CallbackQuery):
             logger.error(
                 "LocaleFilter: expected `CallbackQuery`, got `%s`",
                 callback.__class__.__name__,

@@ -16,7 +16,7 @@ Handler: TypeAlias = Callable[[Update, Data], Awaitable[Any]]
 
 class DataBaseMiddleware(BaseMiddleware):
     async def __call__(self, handler: Handler, event: Update, data: Data) -> Any:
-        db_pool: AsyncConnectionPool | None = data.get("bd_pool")
+        db_pool: AsyncConnectionPool | None = data.get("db_pool")
         if db_pool is None:
             logger.error("Database pool is not provided in middleware data.")
             raise RuntimeError

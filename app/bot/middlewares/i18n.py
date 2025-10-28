@@ -23,7 +23,7 @@ class TranslatorMiddlware(BaseMiddleware):
             return await handler(event, data)
 
         state: FSMContext = data.get("state")
-        user_context_data = state.get_data()
+        user_context_data = await state.get_data()
 
         if (user_lang := user_context_data.get("user_lang")) is None:
             conn: AsyncConnection | None = data.get("conn")

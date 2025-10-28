@@ -28,15 +28,16 @@ def get_lang_settings_kb(
                     )
                 ]
             )
-        buttons.append(
-            [
-                InlineKeyboardButton(
-                    text="cancel_lang_button_text",
-                    callback_data="cancel_lang_button_data",
-                ),
-                InlineKeyboardButton(
-                    text="save_lang_button_text", callback_data="save_lang_button_data"
-                ),
-            ]
-        )
-        return InlineKeyboardMarkup(inline_keyboard=buttons)
+    buttons.append(
+        [
+            InlineKeyboardButton(
+                text=i18n.get("cancel_lang_button_text"),
+                callback_data="cancel_lang_button_data",
+            ),
+            InlineKeyboardButton(
+                text=i18n.get("save_lang_button_text"),
+                callback_data="save_lang_button_data",
+            ),
+        ]
+    )
+    return InlineKeyboardMarkup(inline_keyboard=buttons)

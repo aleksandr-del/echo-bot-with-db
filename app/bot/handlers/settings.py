@@ -96,7 +96,7 @@ async def process_save_click(
         ),
     )
     await state.update_data(lang_settings_msg_id=None, user_lang=None)
-    await state.set_data()
+    await state.set_state()
 
 
 @settings_router.callback_query(F.data == "cancel_lang_button_data")

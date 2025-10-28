@@ -110,7 +110,7 @@ async def process_unban_command(
 
     if banned_status is None:
         await message.reply(text=i18n.get("no_user"))
-    elif:
+    elif banned_status:
         if arg_user.isdigit():
             await update_user_banned_status_by_id(
                 conn=conn, banned=False, user_id=int(arg_user)
@@ -122,4 +122,3 @@ async def process_unban_command(
         await message.reply(text=i18n.get("successfully_unbanned"))
     else:
         await message.reply(text=i18n.get("not_banned"))
-
