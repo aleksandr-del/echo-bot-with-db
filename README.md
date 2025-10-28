@@ -119,8 +119,8 @@ echo-bot-with-db/
 │   │   ├── keyboards/         # Inline keyboards
 │   │   ├── filters/           # Custom filters
 │   │   ├── states/            # FSM states
-│   │   ├── i18n/             # Internationalization
-│   │   └── enums/            # Enumerations
+│   │   ├── i18n/              # Internationalization
+│   │   └── enums/             # Enumerations
 │   ├── infrastructure/
 │   │   └── database/         # Database operations
 │   └── logger/               # Logging configuration
@@ -129,7 +129,7 @@ echo-bot-with-db/
 ├── migrations/               # Database migrations
 ├── docker-compose.yml        # Docker services
 ├── requirements.txt          # Python dependencies
-└── main.py                  # Application entry point
+└── main.py                   # Application entry point
 ```
 
 ## Database Schema
