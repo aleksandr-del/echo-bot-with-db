@@ -136,7 +136,7 @@ echo-bot-with-db/
 
 The bot uses PostgreSQL with the following main tables:
 - `users` - User information and preferences
-- `user_activity` - Activity tracking
+- `activity` - Activity tracking
 - Additional tables for bot functionality
 
 ## Development
