@@ -34,7 +34,7 @@ A Telegram bot built with aiogram 3.x that demonstrates PostgreSQL integration w
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/aleksandr-del/echo-bot-with-db.git
+git clone <https://github.com/aleksandr-del/echo-bot-with-db.git>
 cd echo-bot-with-db
 ```
 
